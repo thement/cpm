@@ -230,6 +230,7 @@ void vt52(int c) {	/* simple vt52,adm3a => ANSI conversion */
 	switch (c) {
         case 0x1b:
 	    putch(c);
+	    state = 0;
 	    break;
 	case '=':
 	case 'Y':
@@ -237,9 +238,11 @@ void vt52(int c) {	/* simple vt52,adm3a => ANSI conversion */
 	    break;
 	case 'E':	/* insert line */
 	    putmes("\033[L");
+	    state = 0;
 	    break;
 	case 'R':	/* delete line */
 	    putmes("\033[M");
+	    state = 0;
 	    break;
 	case 'B':	/* enable attribute */
 	    state = 4;
